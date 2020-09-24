@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "800370144418",
+    "firebase_url": "https://vasha-react-module.firebaseio.com",
+    "project_id": "vasha-react-module",
+    "storage_bucket": "vasha-react-module.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800370144418:android:5a8578212dc285bcb393fb",
+        "android_client_info": {
+          "package_name": "com.reactnativemodule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800370144418-iae7d46arkbok6vkm2b6jenvbgrfudjg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reactnativemodule",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "800370144418-8jedhrp05o25itu41c1mihe0v41f6mtl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtIWbDrHpKvv8LZCB72GzgE8kqreBNftw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800370144418-8jedhrp05o25itu41c1mihe0v41f6mtl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
