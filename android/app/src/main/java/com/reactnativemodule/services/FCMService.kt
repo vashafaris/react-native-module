@@ -14,9 +14,10 @@ import com.google.firebase.messaging.RemoteMessage
 import com.reactnativemodule.BuildConfig
 import com.reactnativemodule.Preference
 import com.reactnativemodule.R
-import com.reactnativemodule.SplashActivity
+import android.util.Log
+// import com.reactnativemodule.SplashActivity
 import com.reactnativemodule.logging.CentralLog
-import com.reactnativemodule.services.BluetoothMonitoringService.Companion.PUSH_NOTIFICATION_ID
+// import com.reactnativemodule.services.BluetoothMonitoringService.Companion.PUSH_NOTIFICATION_ID
 
 class FCMService : FirebaseMessagingService() {
 
@@ -41,7 +42,8 @@ class FCMService : FirebaseMessagingService() {
             it.body?.let { msg ->
 
                 //check the notification for data
-                sendNotification(it.title, msg, remoteMessage.data)
+                // sendNotification(it.title, msg, remoteMessage.data)
+                Log.d("FCMSERVICE", "SENDNOTIF()")
             }
         }
     }
@@ -50,54 +52,54 @@ class FCMService : FirebaseMessagingService() {
         CentralLog.d(TAG, "Refreshed token: $token")
     }
 
-    private fun sendNotification(
-        title: String?,
-        messageBody: String,
-        notifData: Map<String, String>
-    ) {
-        val intent = Intent(this, SplashActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        notifData.keys.forEach { key ->
-            intent.putExtra(key, notifData[key])
-        }
+    // private fun sendNotification(
+    //     title: String?,
+    //     messageBody: String,
+    //     notifData: Map<String, String>
+    // ) {
+    //     val intent = Intent(this, SplashActivity::class.java)
+    //     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    //     notifData.keys.forEach { key ->
+    //         intent.putExtra(key, notifData[key])
+    //     }
 
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT
-        )
+    //     val pendingIntent = PendingIntent.getActivity(
+    //         this, 0, intent,
+    //         PendingIntent.FLAG_ONE_SHOT
+    //     )
 
-        val defaultChannelId = BuildConfig.PUSH_NOTIFICATION_CHANNEL_NAME
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+    //     val defaultChannelId = BuildConfig.PUSH_NOTIFICATION_CHANNEL_NAME
+    //     val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val notificationBuilder = NotificationCompat.Builder(this, defaultChannelId)
-            .setSmallIcon(R.drawable.ic_notification_service)
-            .setContentTitle(title)
-            .setContentText(messageBody)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(messageBody))
-            .setAutoCancel(true)
-            .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
-            .setColor(ContextCompat.getColor(this, R.color.notification_tint))
+    //     val notificationBuilder = NotificationCompat.Builder(this, defaultChannelId)
+    //         .setSmallIcon(R.drawable.ic_notification_service)
+    //         .setContentTitle(title)
+    //         .setContentText(messageBody)
+    //         .setStyle(NotificationCompat.BigTextStyle().bigText(messageBody))
+    //         .setAutoCancel(true)
+    //         .setSound(defaultSoundUri)
+    //         .setContentIntent(pendingIntent)
+    //         .setColor(ContextCompat.getColor(this, R.color.notification_tint))
 
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    //     val notificationManager =
+    //         getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    //     // Since android Oreo notification channel is needed.
+    //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            //should create channels as needed.
-            //e.g next time got channel X? need to create here too
-            val channel = NotificationChannel(
-                defaultChannelId,
-                BuildConfig.PUSH_NOTIFICATION_CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
+    //         //should create channels as needed.
+    //         //e.g next time got channel X? need to create here too
+    //         val channel = NotificationChannel(
+    //             defaultChannelId,
+    //             BuildConfig.PUSH_NOTIFICATION_CHANNEL_NAME,
+    //             NotificationManager.IMPORTANCE_DEFAULT
+    //         )
+    //         notificationManager.createNotificationChannel(channel)
+    //     }
 
-        notificationManager.notify(
-            PUSH_NOTIFICATION_ID,
-            notificationBuilder.build()
-        )
-    }
+    //     notificationManager.notify(
+    //         PUSH_NOTIFICATION_ID,
+    //         notificationBuilder.build()
+    //     )
+    // }
 }

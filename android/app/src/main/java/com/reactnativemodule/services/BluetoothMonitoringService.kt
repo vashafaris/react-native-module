@@ -1,8 +1,8 @@
 package com.reactnativemodule.services
 
 import android.Manifest
-import android.app.NotificationChannel
-import android.app.NotificationManager
+// import android.app.NotificationChannel
+// import android.app.NotificationManager
 import android.app.Service
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
@@ -36,7 +36,7 @@ import com.reactnativemodule.bluetooth.gatt.STREET_PASS
 import com.reactnativemodule.idmanager.TempIDManager
 import com.reactnativemodule.idmanager.TemporaryID
 import com.reactnativemodule.logging.CentralLog
-import com.reactnativemodule.notifications.NotificationTemplates
+// import com.reactnativemodule.notifications.NotificationTemplates
 import com.reactnativemodule.permissions.RequestFileWritePermission
 import com.reactnativemodule.status.Status
 import com.reactnativemodule.status.persistence.StatusRecord
@@ -52,7 +52,7 @@ import kotlin.coroutines.CoroutineContext
 
 class BluetoothMonitoringService : Service(), CoroutineScope {
 
-    private var mNotificationManager: NotificationManager? = null
+    // private var mNotificationManager: NotificationManager? = null
 
     private lateinit var serviceUUID: String
 
@@ -83,7 +83,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var auth: FirebaseAuth
 
-    private var notificationShown: NOTIFICATION_STATE? = null
+    // private var notificationShown: NOTIFICATION_STATE? = null
 
     override fun onCreate() {
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
@@ -98,7 +98,7 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         commandHandler = CommandHandler(WeakReference(this))
 
         CentralLog.d(TAG, "Creating service - BluetoothMonitoringService")
-        serviceUUID = BuildConfig.BLE_SSID
+        serviceUUID = "17E033D3-490E-4BC9-9FE8-2F567643F4D3"
 
         worker = StreetPassWorker(this.applicationContext)
 
@@ -108,8 +108,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
 
-        setupNotifications()
-        functions = FirebaseFunctions.getInstance(BuildConfig.FIREBASE_REGION)
+        // setupNotifications()
+        functions = FirebaseFunctions.getInstance("asia-southeast2")
         broadcastMessage = TempIDManager.retrieveTemporaryID(this.applicationContext)
     }
 
@@ -127,44 +127,44 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         Utils.cancelNextAdvertise(this.applicationContext)
     }
 
-    private fun setupNotifications() {
+    // private fun setupNotifications() {
 
-        mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    //     mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Android O requires a Notification Channel.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = CHANNEL_SERVICE
-            // Create the channel for the notification
-            val mChannel =
-                NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_LOW)
-            mChannel.enableLights(false)
-            mChannel.enableVibration(true)
-            mChannel.vibrationPattern = longArrayOf(0L)
-            mChannel.setSound(null, null)
-            mChannel.setShowBadge(false)
+    //     // Android O requires a Notification Channel.
+    //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    //         val name = CHANNEL_SERVICE
+    //         // Create the channel for the notification
+    //         val mChannel =
+    //             NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_LOW)
+    //         mChannel.enableLights(false)
+    //         mChannel.enableVibration(true)
+    //         mChannel.vibrationPattern = longArrayOf(0L)
+    //         mChannel.setSound(null, null)
+    //         mChannel.setShowBadge(false)
 
-            // Set the Notification Channel for the Notification Manager.
-            mNotificationManager!!.createNotificationChannel(mChannel)
-        }
-    }
+    //         // Set the Notification Channel for the Notification Manager.
+    //         mNotificationManager!!.createNotificationChannel(mChannel)
+    //     }
+    // }
 
-    private fun notifyLackingThings(override: Boolean = false) {
-        if (notificationShown != NOTIFICATION_STATE.LACKING_THINGS || override) {
-            var notif =
-                NotificationTemplates.lackingThingsNotification(this.applicationContext, CHANNEL_ID)
-            startForeground(NOTIFICATION_ID, notif)
-            notificationShown = NOTIFICATION_STATE.LACKING_THINGS
-        }
-    }
+    // private fun notifyLackingThings(override: Boolean = false) {
+    //     if (notificationShown != NOTIFICATION_STATE.LACKING_THINGS || override) {
+    //         var notif =
+    //             NotificationTemplates.lackingThingsNotification(this.applicationContext, CHANNEL_ID)
+    //         startForeground(NOTIFICATION_ID, notif)
+    //         notificationShown = NOTIFICATION_STATE.LACKING_THINGS
+    //     }
+    // }
 
-    private fun notifyRunning(override: Boolean = false) {
-        if (notificationShown != NOTIFICATION_STATE.RUNNING || override) {
-            var notif =
-                NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
-            startForeground(NOTIFICATION_ID, notif)
-            notificationShown = NOTIFICATION_STATE.RUNNING
-        }
-    }
+    // private fun notifyRunning(override: Boolean = false) {
+    //     if (notificationShown != NOTIFICATION_STATE.RUNNING || override) {
+    //         var notif =
+    //             NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
+    //         startForeground(NOTIFICATION_ID, notif)
+    //         notificationShown = NOTIFICATION_STATE.RUNNING
+    //     }
+    // }
 
     private fun hasLocationPermissions(): Boolean {
         val perms = Utils.getRequiredPermissions()
@@ -204,7 +204,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                 TAG,
                 "location permission: ${hasLocationPermissions()} bluetooth: ${isBluetoothEnabled()}"
             )
-            notifyLackingThings()
+            // notifyLackingThings()
+            Log.d("CLASS BLUETOOTHMONITORING SERVICE", "NOTIFYLACKINGTHINGS()")
             return START_STICKY
         }
 
@@ -248,7 +249,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                 TAG,
                 "location permission: ${hasLocationPermissions()} bluetooth: ${isBluetoothEnabled()}"
             )
-            notifyLackingThings()
+            // notifyLackingThings()
+             Log.d("CLASS BLUETOOTHMONITORING SERVICE", "NOTIFYLACKINGTHINGS()")
             return
         }
 
@@ -265,7 +267,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         }
 
         //show running foreground notification if its not showing that
-        notifyRunning()
+        // notifyRunning()
+         Log.d("CLASS BLUETOOTHMONITORING SERVICE", "notifyRunning()")
 
         when (cmd) {
             Command.ACTION_START -> {
@@ -494,11 +497,13 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
 
         if (!hasLocationPermissions() || !isBluetoothEnabled()) {
             CentralLog.i(TAG, "no location permission")
-            notifyLackingThings(true)
+            // notifyLackingThings(true)
+            Log.d("CLASS BLUETOOTHMONITORING SERVICE", "NOTIFYLACKINGTHINGS()")
             return
         }
 
-        notifyRunning(true)
+        // notifyRunning(true)
+        Log.d("CLASS BLUETOOTHMONITORING SERVICE", "NOTIFYLACKINGTHINGS()")
 
         //ensure our service is there
         setupService()
@@ -611,7 +616,8 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
                     when (state) {
                         BluetoothAdapter.STATE_TURNING_OFF -> {
                             CentralLog.d(TAG, "BluetoothAdapter.STATE_TURNING_OFF")
-                            notifyLackingThings()
+                            // notifyLackingThings()
+                            Log.d("CLASS BLUETOOTHMONITORING SERVICE", "NOTIFYLACKINGTHINGS()")
                             teardown()
                         }
                         BluetoothAdapter.STATE_OFF -> {
@@ -713,20 +719,20 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         }
     }
 
-    enum class NOTIFICATION_STATE() {
-        RUNNING,
-        LACKING_THINGS
-    }
+    // enum class NOTIFICATION_STATE() {
+    //     RUNNING,
+    //     LACKING_THINGS
+    // }
 
     companion object {
 
         private val TAG = "BTMService"
 
-        private val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
-        private val CHANNEL_ID = BuildConfig.SERVICE_FOREGROUND_CHANNEL_ID
-        val CHANNEL_SERVICE = BuildConfig.SERVICE_FOREGROUND_CHANNEL_NAME
+        // private val NOTIFICATION_ID = BuildConfig.SERVICE_FOREGROUND_NOTIFICATION_ID
+        private val CHANNEL_ID = "OpenTrace Updates"
+        val CHANNEL_SERVICE = "OpenTrace Foreground Service"
 
-        val PUSH_NOTIFICATION_ID = BuildConfig.PUSH_NOTIFICATION_ID
+        // val PUSH_NOTIFICATION_ID = BuildConfig.PUSH_NOTIFICATION_ID
 
         val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
 
@@ -742,22 +748,22 @@ class BluetoothMonitoringService : Service(), CoroutineScope {
         var broadcastMessage: TemporaryID? = null
 
         //should be more than advertising gap?
-        val scanDuration: Long = BuildConfig.SCAN_DURATION
-        val minScanInterval: Long = BuildConfig.MIN_SCAN_INTERVAL
-        val maxScanInterval: Long = BuildConfig.MAX_SCAN_INTERVAL
+        val scanDuration: Long = 8000
+        val minScanInterval: Long = 36000
+        val maxScanInterval: Long = 43000
 
-        val advertisingDuration: Long = BuildConfig.ADVERTISING_DURATION
-        val advertisingGap: Long = BuildConfig.ADVERTISING_INTERVAL
+        val advertisingDuration: Long = 180000
+        val advertisingGap: Long = 5000
 
-        val maxQueueTime: Long = BuildConfig.MAX_QUEUE_TIME
-        val bmCheckInterval: Long = BuildConfig.BM_CHECK_INTERVAL
-        val healthCheckInterval: Long = BuildConfig.HEALTH_CHECK_INTERVAL
-        val purgeInterval: Long = BuildConfig.PURGE_INTERVAL
-        val purgeTTL: Long = BuildConfig.PURGE_TTL
+        val maxQueueTime: Long = 7000
+        val bmCheckInterval: Long = 540000
+        val healthCheckInterval: Long = 900000
+        val purgeInterval: Long = 86400000
+        val purgeTTL: Long = 1814400000
 
-        val connectionTimeout: Long = BuildConfig.CONNECTION_TIMEOUT
+        val connectionTimeout: Long = 6000
 
-        val blacklistDuration: Long = BuildConfig.BLACKLIST_DURATION
+        val blacklistDuration: Long = 100000
 
         val infiniteScanning = false
         val infiniteAdvertising = false

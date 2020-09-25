@@ -9,7 +9,7 @@ import java.util.*
 object BlueTrace {
 
     val characteristicToProtocolVersionMap = mapOf<UUID, Int>(
-        UUID.fromString(BuildConfig.V2_CHARACTERISTIC_ID) to 2
+        UUID.fromString("117BDD58-57CE-4E7A-8E87-7CCCDDA2A804") to 2
     )
 
     val implementations = mapOf<Int, BlueTraceProtocol>(

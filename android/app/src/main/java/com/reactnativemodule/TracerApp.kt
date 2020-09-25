@@ -19,7 +19,9 @@ class TracerApp : Application() {
     companion object {
 
         private val TAG = "TracerApp"
-        const val ORG = BuildConfig.ORG
+        // const val ORG = BuildConfig.ORG
+
+        const val ORG = "AGIT"
 
         lateinit var AppContext: Context
 

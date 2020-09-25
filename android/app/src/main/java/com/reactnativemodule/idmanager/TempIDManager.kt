@@ -10,8 +10,8 @@ import com.google.gson.GsonBuilder
 import com.reactnativemodule.Preference
 import com.reactnativemodule.logging.CentralLog
 import com.reactnativemodule.services.BluetoothMonitoringService.Companion.bmValidityCheck
-import com.reactnativemodule.model.TempIdsModel
-import com.reactnativemodule.model.TempIdModel
+// import com.reactnativemodule.model.TempIdsModel
+// import com.reactnativemodule.model.TempIdModel
 import java.io.File
 import java.util.*
 
@@ -145,20 +145,20 @@ object TempIDManager {
         }.addOnFailureListener {
             CentralLog.d(TAG, "[TempID] Error getting Temporary IDs")
 
-            val TempId = TempIdModel()
-            val tempIdModels: MutableList<TempIdModel> = mutableListOf()
-            TempId.TempID = UUID.randomUUID().toString()
-            TempId.startTime = System.currentTimeMillis()
-            TempId.expiryTime = System.currentTimeMillis() + 1000
-            tempIdModels.add(TempId)
+            // val TempId = TempIdModel()
+            // val tempIdModels: MutableList<TempIdModel> = mutableListOf()
+            // TempId.TempID = UUID.randomUUID().toString()
+            // TempId.startTime = System.currentTimeMillis()
+            // TempId.expiryTime = System.currentTimeMillis() + 1000
+            // tempIdModels.add(TempId)
 
-            CentralLog.w(TAG, "Retrieved Temporary IDs from Server")
-            val gson: Gson = GsonBuilder().disableHtmlEscaping().create()
-            val jsonByteArray = gson.toJson(tempIdModels).toByteArray(Charsets.UTF_8)
-            storeTemporaryIDs(
-                context,
-                jsonByteArray.toString(Charsets.UTF_8)
-            )
+            // CentralLog.w(TAG, "Retrieved Temporary IDs from Server")
+            // val gson: Gson = GsonBuilder().disableHtmlEscaping().create()
+            // val jsonByteArray = gson.toJson(tempIdModels).toByteArray(Charsets.UTF_8)
+            // storeTemporaryIDs(
+            //     context,
+            //     jsonByteArray.toString(Charsets.UTF_8)
+            // )
 
         }
     }

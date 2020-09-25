@@ -140,6 +140,36 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+
+        buildConfigField "String", "STORE_URL", STORE_URL
+        buildConfigField "String", "PRIVACY_URL", PRIVACY_URL
+
+        buildConfigField "String", "FIREBASE_REGION", FIREBASE_REGION
+
+        buildConfigField "String", "ORG", ORG
+        buildConfigField "int", "SERVICE_FOREGROUND_NOTIFICATION_ID", SERVICE_FOREGROUND_NOTIFICATION_ID
+        buildConfigField "String", "SERVICE_FOREGROUND_CHANNEL_ID", SERVICE_FOREGROUND_CHANNEL_ID
+        buildConfigField "String", "SERVICE_FOREGROUND_CHANNEL_NAME", SERVICE_FOREGROUND_CHANNEL_NAME
+
+        buildConfigField "int", "PUSH_NOTIFICATION_ID", PUSH_NOTIFICATION_ID
+        buildConfigField "String", "PUSH_NOTIFICATION_CHANNEL_NAME", PUSH_NOTIFICATION_CHANNEL_NAME
+
+        buildConfigField "long", "SCAN_DURATION", SCAN_DURATION
+        buildConfigField "long", "MIN_SCAN_INTERVAL", MIN_SCAN_INTERVAL
+        buildConfigField "long", "MAX_SCAN_INTERVAL", MAX_SCAN_INTERVAL
+        buildConfigField "long", "MAX_QUEUE_TIME", MAX_QUEUE_TIME
+        buildConfigField "long", "BM_CHECK_INTERVAL", BM_CHECK_INTERVAL
+        buildConfigField "long", "HEALTH_CHECK_INTERVAL", HEALTH_CHECK_INTERVAL
+        buildConfigField "long", "PURGE_INTERVAL", PURGE_INTERVAL
+        buildConfigField "long", "PURGE_TTL", PURGE_TTL
+        buildConfigField "long", "CONNECTION_TIMEOUT", CONNECTION_TIMEOUT
+        buildConfigField "long", "BLACKLIST_DURATION", BLACKLIST_DURATION
+
+        buildConfigField "long", "ADVERTISING_DURATION", ADVERTISING_DURATION
+        buildConfigField "long", "ADVERTISING_INTERVAL", ADVERTISING_INTERVAL
+
+        buildConfigField "String", "V2_CHARACTERISTIC_ID", V2_CHARACTERISTIC_ID
     }
     splits {
         abi {
@@ -160,6 +190,8 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            buildConfigField "String", "FIREBASE_UPLOAD_BUCKET", STAGING_FIREBASE_UPLOAD_BUCKET
+            buildConfigField "String", "BLE_SSID", STAGING_SERVICE_UUID
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -167,6 +199,8 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            buildConfigField "String", "FIREBASE_UPLOAD_BUCKET", PRODUCTION_FIREBASE_UPLOAD_BUCKET
+            buildConfigField "String", "BLE_SSID", PRODUCTION_SERVICE_UUID
         }
     }
 
