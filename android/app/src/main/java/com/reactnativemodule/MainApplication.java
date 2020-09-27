@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.reactnativemodule.ToastManager; 
 import com.facebook.react.BuildConfig;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+// import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,7 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           packages.add(new ToastManager());
-          packages.add(new ReactNativeConfigPackage());
+          // packages.add(new ReactNativeConfigPackage());
           // packages.add(new ModulePackage());
           return packages;
         }

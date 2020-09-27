@@ -134,6 +134,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         applicationId "com.reactnativemodule"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -224,6 +228,7 @@ dependencies {
     // implementation fileTree(dir: "libs", include: ["*.jar"])
     // //noinspection GradleDynamicVersion
     // implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    compile 'com.android.support:multidex:1.0.0'
     implementation project(':react-native-config')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
